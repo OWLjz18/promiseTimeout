@@ -1,6 +1,6 @@
 /**
  * @author OWLjz18 <owl.jz18@gmail.com>
- * @version 1.0.0
+ * @version 1.0.1
  * @license MIT > https://github.com/OWLjz18/promiseTimeout/blob/main/LICENSE.md
 */
 

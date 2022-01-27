@@ -103,6 +103,7 @@ _**NOTA:**_ En muchos foros ya se encuentra una solución como esta `const delay
 ### 🦉 Autor ###
 
   * *__José Zambrano__* ([OWLjz18](https://github.com/OWLjz18)) => Creador del proyecto.
+    * Instagram => [owl.jz18](https://github.com/owl.jz18)
     * Correo electrónico => <owl.jz18@gmail.com>
 
 - - -
