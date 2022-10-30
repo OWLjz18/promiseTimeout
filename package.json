@@ -1,0 +1,16 @@
+{
+  "name": "promise-timeout-jz",
+  "version": "1.0.1",
+  "description": "Un setTimeout, pero con promesas.",
+  "main": "src/promiseTimeout.js",
+  "scripts": { },
+  "keywords": [
+    "setTimeout",
+    "promises",
+    "timeout",
+    "timeout-jz",
+    "jz"
+  ],
+  "author": "OWLjz18 <owl.jz18@gmail.com>",
+  "license": "MIT"
+}
