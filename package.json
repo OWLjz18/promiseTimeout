@@ -1,8 +1,9 @@
 {
   "name": "promise-timeout-jz",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Un setTimeout, pero con promesas.",
   "main": "src/promiseTimeout.js",
+  "type": "module",
   "scripts": { },
   "keywords": [
     "setTimeout",
