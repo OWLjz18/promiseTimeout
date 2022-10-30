@@ -1,17 +1,26 @@
 {
   "name": "promise-timeout-jz",
   "version": "1.0.2",
-  "description": "Un setTimeout, pero con promesas.",
+  "description": "A setTimeout, but with promises.",
   "main": "src/promiseTimeout.js",
   "type": "module",
-  "scripts": { },
+  "scripts": {
+    "linter": "eslint './**/*.js'",
+    "docs": "jsdoc -c './jsdoc.json'"
+  },
   "keywords": [
+    "timeout",
     "setTimeout",
     "promises",
-    "timeout",
-    "timeout-jz",
-    "jz"
+    "timeout-jz"
   ],
   "author": "OWLjz18 <owl.jz18@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "docdash": "1.2.0",
+    "eslint": "8.25.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-import": "2.26.0",
+    "jsdoc": "3.6.11"
+  }
 }
