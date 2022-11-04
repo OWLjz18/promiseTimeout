@@ -1,50 +1,50 @@
 <h1 align="center">promiseTimeout</h1>  
 
-promiseTimeout se encarga de ejecutar una _"función de vuelta"_ (conocida como callback) luego de un tiempo específicado, exactamente como lo hace el _**"setTimeout"**_, a diferencia de que _**promiseTimeout**_ retorna una promesa, lo que nos permite tener de manera más comoda el control de la asincronía al usar un *"timeout"*. Aunque deben tener en cuenta que este no retorna lo que conocemos como el _**timeoutID**_, por lo que no podrá usar un **"clearTimeout()"**.
+It's the usual setTimeout, but with **promises** or **async/await**.
 
 - - -
 
-### 📝 Pre-Requisitos ### 
+### Instalation 🔧 ### 
 
-  * [Git](https://git-scm.com/) Lo usaremos para clonar el repositorio.
-
-- - -
-
-### 🔧 Instalación ### 
-
-Diríjase al proyecto en que desea implementarlo, abra su terminal y realice un:
+You can add it as a git submodule to your project:
 
 ``` sh
-git clone 'https://github.com/OWLjz18/promiseTimeout.git'
+git submodule add 'https://github.com/OWLjz18/promiseTimeout.git'
+```
+
+Or you can use the npm module:
+
+``` sh
+npm i promise-timeout-jz
+```
+
+Or with pnpm:
+
+``` sh
+pnpm add promise-timeout-jz
 ```
 
 - - -
 
-### 🔎 Uso ###
+### Use 🔎 ###
 
-#### Sintaxis: 
+#### Syntax: 
 ``` javascript
-promiseTimeout(funcion[, tiempo, error]);
+promiseTimeout(callback[, delay, { error }]);
 ```
 
-  * funcion => Es la función que se ejecutará (callback) luego del tiempo indicado.
-  * tiempo? => Es el tiempo en milisegundos que se demorará **promiseTimeout** en ejecutar la función, sino se establece ningúno se ejecutará inmediatamente.
-  * error? => Este parámetro opcional indica si se lanzará un error o no, por defecto viene establecido en **false**, si lo establece en **true**, se arrojará un error. La funcionalidad de este parámetro es permitirle a usted prácticar el manejo de errores.
+  * **callback** => It is the callback that will execute after the specified time.
+  * **delay?** => It is the time it will take before executing the callback.
+  * **error?** => With this parameter we can intentionally reject the promise. What is it for? In case you want to test error handling.
 
-#### Ejemplo:
+#### Example:
 
-_**promiseTimeout**_ se puede utilizar de la misma forma que el **setTimeout**, pero estaríamos desperdiciando o (ignorando) el uso para el que fué creado, el cuál es poder trabajar de forma "síncrona" al hacer uso de un **"timeout"**. Veamos las dos formas de manejar la asincronía mediante un ejemplo:
+In the examples I will assume you are using Nodejs and the ESmodules.
 
-Comencemos creando un archivo en la raíz del proyecto, en mi caso lo nombraré _"code.js"_ en el hay que importar el _**"promiseTimeout"**_, si al instalarlo lo posicionó en la raíz de su proyecto, así se vería la importación: 
-
-``` javascript
-import promiseTimeout from './promiseTimeout/src/promiseTimeout.js';
-```
-
-Forma #1: Usando la sintaxis de promesas:
+Way #1: Using **promises**.
 
 ``` javascript
-import promiseTimeout from './promiseTimeout/src/promiseTimeout.js';
+import promiseTimeout from 'promise-timeout-jz';
 
 console.log('HTML');
 
@@ -53,12 +53,12 @@ promiseTimeout(() => console.log('CSS'), 2000)
   .catch(error => console.error(error));
 ```
 
-Forma #2: Usando la sintaxis de async/await.
+Way #2: Using **async/await**.
 
 ``` javascript
-import promiseTimeout from './promiseTimeout/src/promiseTimeout.js';
+import promiseTimeout from 'promise-timeout-jz';
 
-( async () => {
+(async () => {
   
   console.log('HTML');
   await promiseTimeout(() => console.log('CSS'), 2000);
@@ -67,53 +67,58 @@ import promiseTimeout from './promiseTimeout/src/promiseTimeout.js';
 })();
 ```
 
-En el caso de la segunda forma como hacemos uso de _**"async/await"**_ necesitamos estar dentro de una función **async**, por lo que hice uso de las funciones autoinvocadas para crear una especie de "envoltorio", pero si usted está dentro de una función o un evento asíncrono puede ignorar ese "envoltorio", le daré un ejemplo para aplicarlo en un evento asíncrono. 
-
-Imaginemos que tenemos esto en nuestro HTML:
-``` html
-<button id="boton">Click aquí</button>
-```
+Or with top-level await:
 
 ``` javascript
-import promiseTimeout from './promiseTimeout/src/promiseTimeout.js';
+import promiseTimeout from 'promise-timeout-jz';
 
-const boton = document.getElementById('boton');
-
-boton.addEventListener('click', async () => {
-  
-  console.log('HTML');
-  await promiseTimeout(() => console.log('CSS'), 2000);
-  console.log('Javascript');
-
-});
+console.log('HTML');
+await promiseTimeout(() => console.log('CSS'), 2000);
+console.log('Javascript');
 ```
 
-_**NOTA:**_ Recuerden que para el manejo de errores con async/await pueden hacer uso de try...catch
-
-Cómo resultado de los tres ejemplos anteriores veran por consola:
+As a result in any of the three previous examples, we obtain the following by console:
 
   1. HTML
-  2. CSS (Luego de dos segundos)
+  2. CSS (after two seconds)
   3. Javascript
 
-_**NOTA:**_ En muchos foros ya se encuentra una solución como esta `const delay = (callback, ms) => new Promise( res => setTimeout(() => res(callback()), ms) );` a la hora de usar promesas con un **setTimeout**, pero yo quise crear mi propia función con errores personalizados y un tanto mas legible.
+Let's look at one last example, where we make the promise to be rejected, using the error parameter:
+
+``` javascript
+import promiseTimeout from 'promise-timeout-jz';
+
+console.log('HTML');
+
+promiseTimeout(() => console.log('CSS'), 2000, { error: true })
+  .then(() => console.log('Javascript')) // Skip this...
+  .catch(error => console.error(error)); // The error is fired and goes into the catcher.
+```
+
+**_NOTE:_** In some forums (such as stack overflow, for example), there is already a solution like the following:
+
+``` javascript
+const delay = (cb, ms) => new Promise(res => setTimeout(() => res(cb()), ms));
+```
+
+And yes, it's a single line instead of a module installation, but... I wanted to do my own. 😹
 
 - - -
 
-### 🦉 Autor ###
+### Autor 🦉 ###
 
-  * *__José Zambrano__* ([OWLjz18](https://github.com/OWLjz18)) => Creador del proyecto.
+  * *__José Zambrano__* ([OWLjz18](https://github.com/OWLjz18)) => Project creator.
     * Instagram => [@owljz18](https://instagram.com/owljz18)
-    * Correo electrónico => <owl.jz18@gmail.com>
+    * Email => <owl.jz18@gmail.com>
 
 - - -
 
-### 🤝 Apoyo ###
+### Support 🤝 ###
 
-Si te gusta el proyecto puedes comentarle a otros sobre él y regalarnos una 🌟.
+If you like the project, you can give us a star. 🌟
 
 - - -
 
-### 📃 Licencia ###
+### License 📃 ###
 
-Este proyecto esta bajo una licencia MIT, visite el archivo [LICENSE.md](./LICENSE.md) para obtener mas información sobre dicha licencia.
+This project is licensed under an _MIT_ license, please visit the [LICENSE.md](./LICENSE.md) file for more information about it.
