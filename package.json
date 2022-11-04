@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
+    "test": "node --test './test/'",
     "linter": "eslint './**/*.js'",
     "docs": "jsdoc -c './jsdoc.json'"
   },
